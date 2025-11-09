@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtestloop.a CMakeFiles/testloop.dir/testloop.cpp.o
+/usr/bin/ranlib libtestloop.a
