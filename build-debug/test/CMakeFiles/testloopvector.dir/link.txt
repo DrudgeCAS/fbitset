@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/testloopvector.dir/link.d CMakeFiles/testloopvector.dir/testloopvector.cpp.o -o testloopvector  libtestloop.a

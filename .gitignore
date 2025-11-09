@@ -32,5 +32,6 @@
 *.app
 
 /cmake-build-*/
+/build-*/
 /.idea/
 /test/catch.hpp

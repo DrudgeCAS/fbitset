@@ -1,4 +1,4 @@
-[![Build Status](https://circleci.com/gh/tschijnmo/fbitset.svg?style=shield)](https://circleci.com/gh/tschijnmo/fbitset)
+[![CI](https://github.com/DrudgeCAS/fbitset/workflows/CI/badge.svg)](https://github.com/DrudgeCAS/fbitset/actions)
 
 # fbitset
 A highly optimized and tunable C++ bitset library

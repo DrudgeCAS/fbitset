@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -Wl,--dependency-file=CMakeFiles/crash_no_ext.dir/link.d CMakeFiles/crash_no_ext.dir/crash_no_ext.cpp.o -o crash_no_ext

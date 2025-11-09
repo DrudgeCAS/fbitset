@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: [debug, release]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ make
+      
+      - name: Create build directory
+        run: mkdir cmake-test-${{ matrix.build_type }}
+      
+      - name: Configure CMake
+        run: |
+          cd cmake-test-${{ matrix.build_type }}
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} ..
+      
+      - name: Build
+        run: |
+          cd cmake-test-${{ matrix.build_type }}
+          make
+      
+      - name: Run tests
+        run: |
+          cd cmake-test-${{ matrix.build_type }}
+          ./test/testmain
