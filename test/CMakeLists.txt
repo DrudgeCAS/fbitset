@@ -1,10 +1,15 @@
-# Download the Catch2 single header.
+# Fetch Catch2 v3 using FetchContent
+# To update Catch2, change the GIT_TAG to the desired version
+# Check releases at: https://github.com/catchorg/Catch2/releases
+include(FetchContent)
 
-# Download Catch2 v2.13.10 (latest v2.x with SIGSTKSZ fix)
-file(DOWNLOAD
-        "https://github.com/catchorg/Catch2/releases/download/v2.13.10/catch.hpp"
-        "${CMAKE_CURRENT_BINARY_DIR}/catch.hpp"
-        )
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG        v3.11.0  # renovate: datasource=github-releases depName=catchorg/Catch2
+)
+
+FetchContent_MakeAvailable(Catch2)
 
 
 # The main test driver.
@@ -13,9 +18,7 @@ add_executable(testmain
         basic.cpp
         )
 
-target_include_directories(testmain
-        PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
-        )
+target_link_libraries(testmain PRIVATE Catch2::Catch2)
 
 # Tests supposed to crash with assertion failure.
 add_executable(crash_no_ext crash_no_ext.cpp)
