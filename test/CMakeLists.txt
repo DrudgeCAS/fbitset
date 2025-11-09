@@ -1,7 +1,8 @@
 # Download the Catch2 single header.
 
+# Download Catch2 v2.13.10 (latest v2.x with SIGSTKSZ fix)
 file(DOWNLOAD
-        "https://github.com/catchorg/Catch2/releases/download/v2.0.1/catch.hpp"
+        "https://github.com/catchorg/Catch2/releases/download/v2.13.10/catch.hpp"
         "${CMAKE_CURRENT_BINARY_DIR}/catch.hpp"
         )
 

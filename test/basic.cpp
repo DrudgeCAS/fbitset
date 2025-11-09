@@ -18,10 +18,19 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
-
-#include <catch.hpp>
+#include <ostream>
 
 #include <fbitset.hpp>
+
+// Provide stream operator for Fbitset to prevent Catch2 from trying to treat it as a range
+namespace fbitset {
+    template<Size N, typename Int, typename Cont>
+    std::ostream& operator<<(std::ostream& os, const Fbitset<N, Int, Cont>& bs) {
+        return os << "{Fbitset}";
+    }
+}
+
+#include <catch.hpp>
 
 using namespace fbitset;
 

@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/testloopbits.dir/link.d CMakeFiles/testloopbits.dir/testloopbits.cpp.o -o testloopbits  libtestloop.a

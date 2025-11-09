@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtestopt.a CMakeFiles/testopt.dir/testopt.cpp.o
+/usr/bin/ranlib libtestopt.a
