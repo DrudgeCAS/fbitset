@@ -4,7 +4,7 @@
 # compile CXX with /home/runner/work/fbitset/.codeql-scratch/dbs/cpp/working/autobuild/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/runner/work/fbitset/fbitset/include -I/home/runner/work/fbitset/fbitset/_codeql_build_dir/test
+CXX_INCLUDES = -I/home/runner/work/fbitset/fbitset/include -I/home/runner/work/fbitset/fbitset/_codeql_build_dir/_deps/catch2-src/src/catch2/.. -I/home/runner/work/fbitset/fbitset/_codeql_build_dir/_deps/catch2-build/generated-includes
 
 CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17
 

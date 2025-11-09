@@ -115,6 +115,7 @@ test/testmain: test/CMakeFiles/testmain.dir/testmain.cpp.o
 test/testmain: test/CMakeFiles/testmain.dir/basic.cpp.o
 test/testmain: test/CMakeFiles/testmain.dir/build.make
 test/testmain: test/CMakeFiles/testmain.dir/compiler_depend.ts
+test/testmain: _deps/catch2-build/src/libCatch2.a
 test/testmain: test/CMakeFiles/testmain.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/runner/work/fbitset/fbitset/_codeql_build_dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable testmain"
 	cd /home/runner/work/fbitset/fbitset/_codeql_build_dir/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/testmain.dir/link.txt --verbose=$(VERBOSE)
