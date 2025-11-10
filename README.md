@@ -27,7 +27,7 @@ latest C++17 compile-time features and template programming, it is ensured that
 loops can be correctly unrolled for internal storage, which can be verified by
 the assembly output from G++ and Clang++.
 
-Since this library is designed for use cases with shear demand on performance,
+Since this library is designed for use cases with sheer demand on performance,
 in addition to making sure the unrolling of the loops for internal storage,
 the C++20 standard library `<bit>` header functions are used for bit operations.
 These compile to efficient native instructions for bitwise operations when they
