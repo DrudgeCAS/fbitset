@@ -29,9 +29,9 @@ the assembly output from G++ and Clang++.
 
 Since this library is designed for use cases with shear demand on performance,
 in addition to making sure the unrolling of the loops for internal storage,
-some very portable GCC compiler intrinsics are also used.  This could utilize
-native instructions for some bitwise operations when they are available, like
-the `popcnt`, `bsf`, and `bsr` x86-64 instructions.
+the C++20 standard library `<bit>` header functions are used for bit operations.
+These compile to efficient native instructions for bitwise operations when they
+are available, like the `popcnt`, `bsf`, and `bsr` x86-64 instructions.
 
 In addition to being highly optimized, by modern C++ template programming, the
 bit set is also very tunable.  Things like the internal integral type used to
