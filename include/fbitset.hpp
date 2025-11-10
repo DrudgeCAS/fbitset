@@ -8,6 +8,7 @@
 #define FBITSET_FBITSET_H
 
 #include <array>
+#include <bit>
 #include <cassert>
 #include <functional>
 #include <initializer_list>
@@ -36,30 +37,25 @@ namespace internal {
     template <> constexpr bool is_no_ext<No_ext> = true;
 
     //
-    // Misc bit operations
+    // Bit operations using C++20 <bit> header
     //
-    // TODO: Make these operations cross-platform by conditional compilation of
-    // intrinsic functions and possibly a fallback mode.
-    //
-    // TODO: Investigate a SIMD-based solution to these problems for
-    // SSE/AVX/Neon instructions.
+    // These functions use the standard library implementations which
+    // compile to efficient hardware instructions on supporting platforms.
     //
 
     /** Counts the number of leading zeros.
      *
      * The input cannot be zero.
      */
-    inline Size clz(unsigned int x) { return __builtin_clz(x); }
-    inline Size clz(unsigned long x) { return __builtin_clzl(x); }
-    inline Size clz(unsigned long long x) { return __builtin_clzll(x); }
+    template <typename T>
+    inline Size clz(T x) { return static_cast<Size>(std::countl_zero(x)); }
 
     /** Counts the number of trailing zeros.
      *
      * The input cannot be zero.
      */
-    inline Size ctz(unsigned int x) { return __builtin_ctz(x); }
-    inline Size ctz(unsigned long x) { return __builtin_ctzl(x); }
-    inline Size ctz(unsigned long long x) { return __builtin_ctzll(x); }
+    template <typename T>
+    inline Size ctz(T x) { return static_cast<Size>(std::countr_zero(x)); }
 
     /** Finds the index of the first set bit.
      *
@@ -68,17 +64,13 @@ namespace internal {
     template <typename T> Size fls(T x)
     {
         assert(x != 0);
-        return std::numeric_limits<T>::digits - clz(x) - 1;
+        return static_cast<Size>(std::bit_width(x) - 1);
     }
 
     /** Counts the number of set bits.
      */
-    inline Size popcount(unsigned int x) { return __builtin_popcount(x); }
-    inline Size popcount(unsigned long x) { return __builtin_popcountl(x); }
-    inline Size popcount(unsigned long long x)
-    {
-        return __builtin_popcountll(x);
-    }
+    template <typename T>
+    inline Size popcount(T x) { return static_cast<Size>(std::popcount(x)); }
 }
 
 /** The core base class.
@@ -755,6 +747,9 @@ public:
     //
 
     /** Finds the index of the last (highest) set bit.
+     *
+     * @return The index of the highest set bit, or std::numeric_limits<Size>::max()
+     *         if no bit is set.
      */
     Size find_last() const noexcept
     {
@@ -766,7 +761,7 @@ public:
                 return idx + LIMB_BITS * (i - 1);
             }
         }
-        return -1;
+        return std::numeric_limits<Size>::max();
     }
 
     /** Counts the number of all set bits inside the set.
