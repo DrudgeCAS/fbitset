@@ -13,18 +13,9 @@
  */
 
 #include <cstdint>
-#include <ostream>
 #include <vector>
 
 #include <fbitset.hpp>
-
-namespace fbitset {
-template <Size N, typename Int, typename Cont>
-std::ostream& operator<<(std::ostream& os, const Fbitset<N, Int, Cont>& bs)
-{
-    return os << "{Fbitset}";
-}
-}
 
 #include <catch2/catch_test_macros.hpp>
 
