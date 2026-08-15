@@ -32,9 +32,14 @@ using Size = size_t;
 
 namespace internal {
     /** Utility for checking if the container is `No_ext`.
+     *
+     * The explicit specialization needs to be `inline`.  Without it the
+     * specialization has external linkage and gets emitted in every
+     * translation unit including this header, so a program including the
+     * header twice fails to link with a duplicate symbol.
      */
-    template <typename T> constexpr bool is_no_ext = false;
-    template <> constexpr bool is_no_ext<No_ext> = true;
+    template <typename T> inline constexpr bool is_no_ext = false;
+    template <> inline constexpr bool is_no_ext<No_ext> = true;
 
     //
     // Bit operations using C++20 <bit> header
@@ -523,13 +528,21 @@ public:
          *
          * The copy of the current limb and base will also be updated to keep
          * the invariant.
+         *
+         * Note that the current limb is only read after the incremented
+         * pointer has been checked against the sentinel.  Reading it
+         * unconditionally would dereference one past the last limb whenever
+         * the final limb gets exhausted, which is undefined behaviour even
+         * though the value read is discarded right away.
          */
         void get_next() noexcept
         {
             while (curr_ < last_ && limb_ == 0) {
                 ++curr_;
-                limb_ = *curr_;
                 base_ += LIMB_BITS;
+                if (curr_ < last_) {
+                    limb_ = *curr_;
+                }
             }
         }
 
