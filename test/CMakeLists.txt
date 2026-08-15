@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(Catch2)
 add_executable(testmain
         testmain.cpp
         basic.cpp
+        multi_tu.cpp
         )
 
 target_link_libraries(testmain PRIVATE Catch2::Catch2)

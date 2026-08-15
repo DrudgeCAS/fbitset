@@ -38,3 +38,35 @@ jobs:
       
       - name: Run tests
         run: ./build/test/testmain
+
+  sanitize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ make
+
+      # Out-of-bounds accesses in the bit manipulation are invisible to the
+      # plain test run, since the values read are normally discarded.
+      - name: Configure CMake with the address and undefined behaviour sanitizers
+        run: >
+          cmake -B build-sanitize -DCMAKE_BUILD_TYPE=Debug
+          -DCMAKE_CXX_FLAGS="-fsanitize=address,undefined -fno-omit-frame-pointer"
+          -DCMAKE_EXE_LINKER_FLAGS="-fsanitize=address,undefined"
+
+      - name: Build
+        run: cmake --build build-sanitize
+
+      - name: Run tests
+        run: ./build-sanitize/test/testmain
+        env:
+          UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
